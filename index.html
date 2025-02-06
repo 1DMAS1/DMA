@@ -8,20 +8,24 @@
             background-color: #f0f8ff;
             font-family: 'Comic Sans MS', sans-serif;
             text-align: center;
-            padding: 50px;
+            padding: 20px;
             margin: 0;
+            box-sizing: border-box;
         }
 
         .container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
-            gap: 30px;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         .nickname-container {
-            position: relative;
-            width: 300px;
+            width: 100%;
             background-color: #d42b2b;
             border: 4px solid #fab81c;
             border-radius: 15px;
@@ -34,40 +38,43 @@
             color: white;
             padding: 10px;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 22px;
             border-radius: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
         .nickname-input {
             width: 100%;
-            height: 35px;
-            padding: 5px;
-            font-size: 16px;
+            height: 45px;
+            padding: 10px;
+            font-size: 18px;
             text-align: center;
             border: 2px solid #fab81c;
             border-radius: 8px;
             margin-bottom: 20px;
             outline: none;
+            box-sizing: border-box;
         }
 
         .button-group {
             display: flex;
             justify-content: space-around;
+            gap: 10px;
         }
 
         .button {
-            width: 90px;
-            height: 40px;
+            flex: 1;
+            height: 50px;
             background-color: #fab81c;
             border: 2px solid #aa7400;
             border-radius: 10px;
             font-weight: bold;
+            font-size: 18px;
             color: #4e2600;
             cursor: pointer;
             text-align: center;
-            line-height: 40px;
+            line-height: 50px;
             transition: all 0.3s ease;
         }
 
@@ -80,7 +87,7 @@
         }
 
         .history-container {
-            width: 320px;
+            width: 100%;
             padding: 20px;
             border: 4px solid #b0b0b0;
             border-radius: 15px;
@@ -90,7 +97,7 @@
         }
 
         .history-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             color: #333;
             margin-bottom: 10px;
@@ -101,7 +108,7 @@
             border: 2px solid #b0b0b0;
             border-radius: 10px;
             padding: 10px;
-            height: 260px;
+            height: 200px;
             overflow-y: auto;
             background-color: white;
         }
@@ -121,7 +128,7 @@
             margin-top: 20px;
             padding: 15px 20px;
             font-weight: bold;
-            font-size: 24px;
+            font-size: 20px;
             color: white;
             background-color: #d9534f;
             border-radius: 12px;
@@ -135,8 +142,8 @@
 
         #giveUpButton {
             margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
+            padding: 12px;
+            font-size: 20px;
             font-weight: bold;
             background-color: #ff4444;
             color: white;
@@ -148,6 +155,27 @@
 
         #giveUpButton:hover {
             background-color: #ff7777;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .nickname-input {
+                font-size: 16px;
+                height: 40px;
+            }
+
+            #giveUpButton {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -180,16 +208,12 @@
                 return;
             }
 
-            // 글자 수 검증: 2글자 이상 6글자 이하
             if (userInput.length < 2 || userInput.length > 6) {
                 showMessage("닉네임은 2글자 이상, 6글자 이하로 입력해야 합니다.", "warning");
                 return;
             }
 
-            // 정규식: 한글 음절과 영어만 허용
             const validInputRegex = /^[가-힣A-Za-z]+$/;
-
-            // 자음이나 모음만 있는 글자가 포함된 경우 제한
             const invalidKoreanRegex = /[ㄱ-ㅎㅏ-ㅣ]/;
 
             if (!validInputRegex.test(userInput) || invalidKoreanRegex.test(userInput)) {
