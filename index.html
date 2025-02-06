@@ -160,7 +160,7 @@
             <input type="text" id="nicknameInput" class="nickname-input" placeholder="닉네임을 입력하세요" />
             <div class="button-group">
                 <div class="button" id="checkButton">확인</div>
-                <div class="button">취소</div>
+                <div class="button" id="cancelButton">취소</div>
             </div>
             <div id="messageContainer"></div>
             <div id="giveUpButton" class="hidden">포기하기</div>
@@ -205,6 +205,11 @@
 
             showMessage("이미 사용 중인 닉네임입니다.", "error");
             addHistory(userInput);
+        });
+
+        document.getElementById('cancelButton').addEventListener('click', function() {
+            // 입력 필드 비우기
+            document.getElementById('nicknameInput').value = "";
         });
 
         function addHistory(nickname) {
